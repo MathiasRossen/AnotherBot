@@ -261,5 +261,6 @@ __pycache__/
 *.pyc
 
 # Custom ignore rules
-app.config
-/Something/Files/*
+DiscordConfig.json
+CustomKitchenDeliveries/Files/*
+*.db
