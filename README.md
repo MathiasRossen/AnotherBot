@@ -16,7 +16,7 @@ Currently it is a big bunch of spaghetticode because it was rushed, but it will 
 * Put emotes into their own class
 * Save a list of bot mods in singleton
 
-#NuGet packages:
+# NuGet packages:
 * Discord.Net
 * sqlite-net-pcl
 * Microsoft-Extensions.Configuration.Json
