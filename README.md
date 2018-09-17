@@ -15,3 +15,8 @@ Currently it is a big bunch of spaghetticode because it was rushed, but it will 
 * Put database into the application class. Possible bad practice: exposes db to the whole project.
 * Put emotes into their own class
 * Save a list of bot mods in singleton
+
+#NuGet packages:
+* Discord.Net
+* sqlite-net-pcl
+* Microsoft-Extensions.Configuration.Json
