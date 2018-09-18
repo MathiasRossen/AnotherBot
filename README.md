@@ -1,3 +1,1 @@
-# AnotherBot
-
-A Discord.Net bot
+# Development branch
