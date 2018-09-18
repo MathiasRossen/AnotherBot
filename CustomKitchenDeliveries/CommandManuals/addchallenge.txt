@@ -1,0 +1,20 @@
+﻿Use this command to start a challenge.
+Usage: !addchallenge Name-with-dashes-1 weaponId
+
+Name-with-dashes - Specifies the challenge name and you should provide a number too, as it is used in the identifier. Example: Arena-Quest-01:-Pukei-Pukei will become Arena Quest 01: Pukei Pukei.
+
+weaponId - Used to determine which weapon should be used for the challenge.
+0 = Sword and Shield
+1 = Dual Blades
+2 = Long Sword
+3 = Great Sword
+4 = Hammer
+5 = Hunting Horn
+6 = Switch Axe
+7 = Charge Blade
+8 = Lance
+9 = Gunlance
+10 = Light Bowgun
+11 = Heavy Bowgun
+12 = Insect Glaive
+13 = Bow

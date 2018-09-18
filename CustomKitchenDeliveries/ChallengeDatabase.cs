@@ -10,55 +10,91 @@ namespace CustomKitchenDeliveries
 {
     class ChallengeDatabase
     {
-        SQLiteConnection connection;
+        SQLiteConnection database;
 
         public List<Challenge> Challenges
         {
-            get { return connection.Table<Challenge>().ToList(); }
+            get { return database.Table<Challenge>().ToList(); }
         }
 
         public List<Score> Scores
         {
-            get { return connection.Table<Score>().ToList(); }
+            get { return database.Table<Score>().ToList(); }
         }
 
         public List<Player> Players
         {
-            get { return connection.Table<Player>().ToList(); }
+            get { return database.Table<Player>().ToList(); }
+        }
+
+        public List<ulong> Mods
+        {
+            get
+            {
+                List<ulong> mods = new List<ulong>();
+                foreach(Mod m in database.Table<Mod>().ToList())
+                {
+                    mods.Add(ulong.Parse(m.DiscordId));
+                }
+                return mods;
+            }
+        }
+
+        public List<ulong> Channels
+        {
+            get
+            {
+                List<ulong> channels = new List<ulong>();
+                foreach (Channel c in database.Table<Channel>().ToList())
+                {
+                    channels.Add(ulong.Parse(c.DiscordId));
+                }
+                return channels;
+            }
         }
 
         public ChallengeDatabase(string databaseName)
         {
             string databasePath = Path.Combine(Environment.CurrentDirectory, databaseName + ".db");
-            connection = new SQLiteConnection(databasePath);
+            database = new SQLiteConnection(databasePath);
             InitializeDatabase();
         }
 
         private void InitializeDatabase()
         {
-            connection.CreateTable<Challenge>();
-            connection.CreateTable<Score>();
-            connection.CreateTable<Player>();
+            database.CreateTable<Challenge>();
+            database.CreateTable<Score>();
+            database.CreateTable<Player>();
+            database.CreateTable<Mod>();
+            database.CreateTable<Channel>();
         }
 
-        public Challenge AddChallenge(string name, Weapon weapon, int postingPlayerId, string identifier)
+        public void AddChallenge(Challenge challenge)
         {
-            Challenge c = new Challenge() { Name = name, Weapon = weapon, PlayerId = postingPlayerId, Identifier = identifier };
-            connection.Insert(c);
-            return Challenges.Find(x => x.Identifier == identifier);
+            database.Insert(challenge);
         }
 
-        public void AddScore(int playerId, int clearTime, string imageName, int challengeId)
+        public void AddScore(Score score)
         {
-            Score s = new Score() { ClearTime = clearTime, PlayerId = playerId, ImageName = imageName, ChallengeId = challengeId };
-            connection.Insert(s);
+            database.Insert(score);
         }
 
-        public Player AddPlayer(string username)
+        public void AddPlayer(Player player)
         {
-            Player p = new Player() { Name = username };
-            connection.Insert(p);
-            return Players.Find(x => x.Name == username);
+            database.Insert(player);
+        }
+
+        // Should probably change channel and mod, but they'll stay like this for now
+        public void AddChannel(ulong channelId)
+        {
+            Channel c = new Channel() { DiscordId = channelId.ToString() };
+            database.Insert(c);
+        }
+
+        public void AddMod(ulong userId)
+        {
+            Mod m = new Mod() { DiscordId = userId.ToString() };
+            database.Insert(m);
         }
     }
 }

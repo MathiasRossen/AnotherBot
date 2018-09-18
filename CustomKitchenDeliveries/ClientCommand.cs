@@ -3,28 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Discord.WebSocket;
 
 namespace CustomKitchenDeliveries
 {
-    class ClientCommand
+    public class ClientCommand
     {
         public SocketMessage DiscordMessage { get; set; }
         public ISocketMessageChannel Channel { get; set; }
-        public string Sender { get; private set; }
+        public SocketUser Sender { get; private set; }
         public string Name { get; private set; }
         public List<string> Arguments { get; private set; }
-        public bool Valid
-        {
-            get { return Name != null && Arguments.Count == ExpectedArguments; }
-        }
-        public int ExpectedArguments { get; set; }
+        public int Count => Arguments.Count;
+        public string SenderIdString => Sender.Id.ToString();
 
         public ClientCommand(string command, SocketMessage message)
         {
             DiscordMessage = message;
             Channel = message.Channel;
-            Sender = message.Author.Username;
+            Sender = message.Author;
 
             string fullCommand = Regex.Replace(command, "[ ]{2,}", " ");
             string[] commandSplit = fullCommand.Split(" ");
@@ -37,6 +35,11 @@ namespace CustomKitchenDeliveries
             }
             else
                 Arguments = new List<string>();
+        }
+
+        public async Task Respond(string message)
+        {
+            await Channel.SendMessageAsync(message);
         }
     }
 }

@@ -18,6 +18,6 @@ namespace CustomKitchenDeliveries.Models
         public string Identifier { get; set; }
         public Weapon Weapon { get; set; }
         [Indexed]
-        public int PlayerId { get; set; }
+        public string PlayerDiscordId { get; set; } // The SQLite library doesn't use uint64, so i'm saving Discord IDs in a string
     }
 }

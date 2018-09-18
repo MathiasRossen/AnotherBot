@@ -1,0 +1,11 @@
+﻿Available commands:
+!help commandName - Shows the manual of commandName (exclude the !)
+!list - Shows all challenges
+!show identifier - Shows the challenge with the specified identifier
+!addscore identifier clearTime - Adds your score. !help addscore for details 
+!addchallenge name-with-dashes weaponId - Posts a new challenge. !help addchallenge for details 
+!legend - Shows the emote assigned to each weapon
+Legend per weapon: !sns, !db, !ls, !gs, !ha, !hh, !swa, !cb, !la, !gl, !lbg, !hbg, !ig, !bow - Shows the emote assigned to the specific weapon
+
+Mod commands:
+COMING
