@@ -10,13 +10,12 @@ namespace CustomKitchenDeliveries
     {
         IConfigurationRoot config;
 
-        public string Token
-        {
-            get { return config["BotToken"]; }
-        }
+        public string Token => config["BotToken"];
+        public string Database => config["Database"];
+        public new int MessageCacheSize => int.Parse(config["MessageCacheSize"]);
 
         public ConfigHelper()
-            :base()
+            : base()
         {
             config = new ConfigurationBuilder()
                 .AddJsonFile("DiscordConfig.json")

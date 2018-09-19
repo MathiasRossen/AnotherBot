@@ -1,3 +1,5 @@
 {
-  "BotToken": "BOT TOKEN HERE"
+  "BotToken": "BOT TOKEN HERE",
+  "Database": "DBName",
+  "MessageCacheSize":  "100"
 }

@@ -20,10 +20,7 @@ namespace CustomKitchenDeliveries
 
         public async Task MainAsync()
         {
-            ConfigHelper config = new ConfigHelper()
-            {
-                MessageCacheSize = 100
-            };
+            ConfigHelper config = ApplicationController.Instance.ConfigHelper;
             DiscordSocketClient client = new DiscordSocketClient(config);
 
             // Bind methods to events

@@ -30,6 +30,8 @@ namespace CustomKitchenDeliveries
 
         ChallengeDatabase challengeDatabase;
 
+        public ConfigHelper ConfigHelper { get; private set; }
+
         public List<ulong> Mods { get; private set; }
         public List<ulong> RespondChannels { get; private set; }
 
@@ -39,7 +41,8 @@ namespace CustomKitchenDeliveries
 
         private ApplicationController()
         {
-            challengeDatabase = new ChallengeDatabase("TestDB2");
+            ConfigHelper = new ConfigHelper();
+            challengeDatabase = new ChallengeDatabase(ConfigHelper.Database);
             SyncWithDatabase();
 
             // Adding myself
