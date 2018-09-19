@@ -16,7 +16,7 @@ namespace CustomKitchenDeliveries
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                     lock (padlock)
                     {
                         if (instance == null)
@@ -56,9 +56,19 @@ namespace CustomKitchenDeliveries
 
         public void AddScore(string playerId, int clearTime, string imageName, int challengeId)
         {
-            Score s = new Score() { ClearTime = clearTime, PlayerDiscordId = playerId, ImageName = imageName, ChallengeId = challengeId };
-            Scores.Add(s);
-            challengeDatabase.AddScore(s);
+            Score s = Scores.Find(x => x.PlayerDiscordId == playerId);
+            if (s != null)
+            {
+                s.ClearTime = clearTime;
+                s.ImageName = imageName;
+                challengeDatabase.UpdateScore(s);
+            }
+            else
+            {
+                s = new Score() { ClearTime = clearTime, PlayerDiscordId = playerId, ImageName = imageName, ChallengeId = challengeId };
+                Scores.Add(s);
+                challengeDatabase.AddScore(s);
+            }
         }
 
         public Player AddPlayer(string userId, string username)

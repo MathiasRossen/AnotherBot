@@ -36,7 +36,7 @@ namespace CustomKitchenDeliveries.Commands
                 identifier = MakeUniqueIdentifier(identifier);
 
                 application.AddChallenge(challengeName, weapon, postingPlayerId, identifier);
-                await commandData.Respond($"`{challengeName} ({identifier})`EMOTE created");
+                await commandData.Respond($"`{challengeName} ({identifier})`{Emotes.WeaponsArray[(int)weapon]} created");
             }
         }
 

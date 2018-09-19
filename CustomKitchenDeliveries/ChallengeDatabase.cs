@@ -79,6 +79,11 @@ namespace CustomKitchenDeliveries
             database.Insert(score);
         }
 
+        public void UpdateScore(Score score)
+        {
+            database.Update(score);
+        }
+
         public void AddPlayer(Player player)
         {
             database.Insert(player);

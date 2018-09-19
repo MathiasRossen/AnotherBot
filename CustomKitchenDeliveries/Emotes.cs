@@ -22,5 +22,10 @@ namespace CustomKitchenDeliveries
         public const string HBG = ":rocket:";
         public const string IG = ":beetle:";
         public const string BOW = ":bow_and_arrow:";
+
+        public static string[] WeaponsArray =
+        {
+            SNS, DB, GS, LS, HA, HH, SA, CB, LA, GL, LBG, HBG, IG, BOW
+        };
     }
 }

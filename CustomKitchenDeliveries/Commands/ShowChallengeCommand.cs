@@ -25,7 +25,7 @@ namespace CustomKitchenDeliveries.Commands
 
         private async Task ShowLeaderboard(Challenge challenge, ISocketMessageChannel channel)
         {
-            string caption = $"`{challenge.Name}` EMOTE";
+            string caption = $"`{challenge.Name}`{Emotes.WeaponsArray[(int)challenge.Weapon]}";
             await channel.SendMessageAsync(caption);
 
             List<Score> orderedScores = application.Scores.Where(x => x.ChallengeId == challenge.Id).OrderBy(x => x.ClearTime).Take(3).ToList();

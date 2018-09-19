@@ -9,7 +9,7 @@ namespace CustomKitchenDeliveries.Commands
     class ListChallengesCommand : BaseCommand
     {
         public override bool NeedMod => false;
-        public override int ExpectedArguments => 1;
+        public override int ExpectedArguments => 0;
 
         public override async Task Execute(ClientCommand commandData)
         {

@@ -21,8 +21,7 @@ namespace CustomKitchenDeliveries
             { "!list", new ListChallengesCommand() },
             { "!show", new ShowChallengeCommand() },
             { "!legend", new LegendCommand() },
-            { "!help", new HelpCommand() },
-            
+            { "!help", new HelpCommand() }
         };
 
         public BotMain()

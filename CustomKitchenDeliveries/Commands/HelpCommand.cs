@@ -17,7 +17,8 @@ namespace CustomKitchenDeliveries.Commands
             if(commandData.Count > 0)
                 commandName = commandData.Arguments[0];
             string response = "```";
-            using (StreamReader sr = new StreamReader(Path.Combine(Environment.CurrentDirectory, $"CommandManuals\\{commandName}.txt")))
+            string path = Path.Combine(Environment.CurrentDirectory, $"CommandManuals/{commandName}.txt");
+            using (StreamReader sr = new StreamReader(path))
             {
                 response += sr.ReadToEnd();
             }

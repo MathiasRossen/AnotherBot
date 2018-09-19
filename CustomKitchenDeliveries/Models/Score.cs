@@ -18,7 +18,7 @@ namespace CustomKitchenDeliveries.Models
         [Ignore]
         public string ImageSource
         {
-            get { return Environment.CurrentDirectory + "\\Files\\" + ImageName; }
+            get { return Environment.CurrentDirectory + "/Files/" + ImageName; }
         }
 
         public static int TimeStringToInt(string timeString)

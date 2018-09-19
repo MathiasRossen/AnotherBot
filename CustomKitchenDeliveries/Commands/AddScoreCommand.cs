@@ -51,13 +51,13 @@ namespace CustomKitchenDeliveries.Commands
             string extension = currentFileName.Split('.').Last();
             string fileName = FilenamePicker(extension);
             WebClient webClient = new WebClient();
-            webClient.DownloadFileAsync(new Uri(url), Environment.CurrentDirectory + $"\\Files\\{fileName}");
+            webClient.DownloadFileAsync(new Uri(url), Environment.CurrentDirectory + $"/Files/{fileName}");
             return fileName;
         }
 
         private string FilenamePicker(string extension)
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(Environment.CurrentDirectory + "\\Files\\");
+            DirectoryInfo directoryInfo = new DirectoryInfo(Environment.CurrentDirectory + "/Files/");
             string fileName = "" + (directoryInfo.GetFiles().Length + 1);
             return fileName + $".{extension}";
         }
