@@ -9,8 +9,7 @@ namespace CustomKitchenDeliveries
 {
     class Program
     {
-        BotMain botController;
-
+        BotMain botMain;
         static IMessageChannel debugChannel;
 
         static void Main(string[] args)
@@ -30,7 +29,7 @@ namespace CustomKitchenDeliveries
             // Login and start
             await client.LoginAsync(TokenType.Bot, config.Token);
             await client.StartAsync();
-            botController = new BotMain();
+            botMain = new BotMain();
 
             // Makes sure the thread never dies
             await Task.Delay(-1);
@@ -40,7 +39,7 @@ namespace CustomKitchenDeliveries
         {
             if(debugChannel == null)
                 debugChannel = message.Channel;
-            await botController.HandleMessage(message);
+            await botMain.HandleMessage(message);
         }
 
         private Task Log(LogMessage logMessage)

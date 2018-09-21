@@ -59,15 +59,17 @@ namespace CustomKitchenDeliveries
 
         public void AddScore(string playerId, int clearTime, string imageName, int challengeId)
         {
-            Score s = Scores.Find(x => x.PlayerDiscordId == playerId);
+            Score s = Scores.Find(x => x.PlayerDiscordId == playerId && x.ChallengeId == challengeId);
             if (s != null)
             {
+                Console.WriteLine("Found a score");
                 s.ClearTime = clearTime;
                 s.ImageName = imageName;
                 challengeDatabase.UpdateScore(s);
             }
             else
             {
+                Console.WriteLine("Found no score");
                 s = new Score() { ClearTime = clearTime, PlayerDiscordId = playerId, ImageName = imageName, ChallengeId = challengeId };
                 Scores.Add(s);
                 challengeDatabase.AddScore(s);

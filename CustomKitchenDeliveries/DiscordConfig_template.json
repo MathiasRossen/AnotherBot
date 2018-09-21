@@ -1,5 +1,6 @@
 {
   "BotToken": "BOT TOKEN HERE",
   "Database": "DBName",
+  // Change this if you want your bot to cache more or fewer messages. Not used currently.
   "MessageCacheSize":  "100"
 }

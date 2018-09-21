@@ -3,4 +3,4 @@ Usage: !addscore identifier clearTime
 
 identifier - The challenge identifier eg. 12GS (can be seen with the !show command)
 
-clearTime - The time you took clearing the challenge, in the Monster Hunter format min'sec"ms eg. 01'33'70
+clearTime - The time you took clearing the challenge, in the Monster Hunter format min'sec"ms eg. 01'33"70

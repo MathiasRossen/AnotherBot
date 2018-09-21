@@ -22,13 +22,13 @@ namespace CustomKitchenDeliveries.Commands
             string clearTime = commandData.Arguments[1];
             IReadOnlyCollection<Discord.Attachment> attachments = commandData.DiscordMessage.Attachments;
             Challenge challenge = application.Challenges.Find(x => x.Identifier == challengeIdentifier);
-
-            if (!CommandValidator.ValidClearTimeFormat(clearTime))
+            
+            if (challenge == null)
+                await commandData.Respond($"Challenge with the identifier {challengeIdentifier} does not exist {Emotes.ERROR}");
+            else if (!CommandValidator.ValidClearTimeFormat(clearTime))
                 await commandData.Respond($"Clear time format is wrong {Emotes.ERROR}");
             else if (!CommandValidator.HasAttachment(commandData.DiscordMessage))
                 await commandData.Respond($"No image was attached {Emotes.ERROR}");
-            else if (challenge != null)
-                await commandData.Respond($"Challenge does not exist {Emotes.ERROR}");
             else
             {
                 Player player = application.Players.Find(x => x.Name == senderName);
@@ -48,10 +48,13 @@ namespace CustomKitchenDeliveries.Commands
 
         private string DownloadImage(string url, string currentFileName)
         {
+            string path = Environment.CurrentDirectory + "/Files/";
+            Console.WriteLine("Path:" + path);
+            Directory.CreateDirectory(path);
             string extension = currentFileName.Split('.').Last();
             string fileName = FilenamePicker(extension);
             WebClient webClient = new WebClient();
-            webClient.DownloadFileAsync(new Uri(url), Environment.CurrentDirectory + $"/Files/{fileName}");
+            webClient.DownloadFileAsync(new Uri(url), Path.Combine(path, $"{fileName}"));
             return fileName;
         }
 

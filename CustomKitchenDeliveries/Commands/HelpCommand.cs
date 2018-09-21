@@ -23,7 +23,7 @@ namespace CustomKitchenDeliveries.Commands
                 response += sr.ReadToEnd();
             }
             response += "```";
-            await commandData.Respond(response);
+            await commandData.RespondToSender(response);
         }
     }
 }
