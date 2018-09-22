@@ -17,6 +17,9 @@ Currently it is a big bunch of spaghetticode because it was rushed, but it will 
 * Save a list of bot mods in singleton ✔
 * Test thoroughly, furiously and intensely
 
+* Rewrite rules for adding scores. 
+I found a problem with MHW only saving the 5 best times you've had for a specific arena run. This means that if you have 5 runs with a DB, let's say 2 mins, 3 mins, 4 mins, 5 mins, 6 mins. If you then start a new challenge with another weapon for example Light Bowgun on 7 mins, then you wouldn't be able to retrieve the intended image for the score. So i'm rewriting the way that users enter scores, so that they will no longer contain an image, but instead the contender will keep a screenshot of their kill screen in case someone claims fake. This does not guarantee that times are genuine, but neither did the old method. After all, this is designed to be used in a small environment, where legitimacy is not a problem.
+
 # NuGet packages:
 * Discord.Net
 * sqlite-net-pcl
