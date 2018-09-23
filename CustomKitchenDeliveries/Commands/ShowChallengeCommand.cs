@@ -25,21 +25,20 @@ namespace CustomKitchenDeliveries.Commands
 
         private async Task ShowLeaderboard(Challenge challenge, ISocketMessageChannel channel)
         {
-            string caption = $"`{challenge.Name}`{Emotes.WeaponsArray[(int)challenge.Weapon]}";
-            await channel.SendMessageAsync(caption);
+            string message = $"`{challenge.Name}`{Emotes.WeaponsArray[(int)challenge.Weapon]}\n";
 
-            List<Score> orderedScores = application.Scores.Where(x => x.ChallengeId == challenge.Id).OrderBy(x => x.ClearTime).Take(3).ToList();
+            List<Score> orderedScores = application.Scores.Where(x => x.ChallengeId == challenge.Id).OrderBy(x => x.ClearTime).Take(5).ToList();
             if (orderedScores.Count == 0)
                 await channel.SendMessageAsync($"No scores yet! {Emotes.ERROR}");
 
             for (int i = 0; i < orderedScores.Count; i++)
             {
-                caption = "";
                 Score score = orderedScores[i];
                 Player player = application.Players.Find(x => x.DiscordId == score.PlayerDiscordId);
-                caption += $".\n`#{i + 1}: {player.Name}`";
-                await channel.SendFileAsync(score.ImageSource, caption);
+                message += $"`#{i + 1}: {player.Name} - {score.ClearTimeString}`\n";
             }
+
+            await channel.SendMessageAsync(message);
         }
     }
 }

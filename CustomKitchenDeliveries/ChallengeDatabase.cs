@@ -55,7 +55,7 @@ namespace CustomKitchenDeliveries
 
         public ChallengeDatabase(string databaseName)
         {
-            string databasePath = Path.Combine(Environment.CurrentDirectory, databaseName + ".db");
+            string databasePath = Environment.CurrentDirectory +  "/" + databaseName + ".db"; //ApplicationController.Instance.ApplicationPath + databaseName + ".db";
             database = new SQLiteConnection(databasePath);
             InitializeDatabase();
         }
@@ -74,9 +74,27 @@ namespace CustomKitchenDeliveries
             database.Insert(challenge);
         }
 
+        public void RemoveChallenge(Challenge challenge)
+        {
+            List<Score> scores = database.Table<Score>().Where(x => x.ChallengeId == challenge.Id).ToList();
+
+            foreach (Score s in scores)
+            {
+                //if (File.Exists(s.ImageSource))
+                //    File.Delete(s.ImageSource);
+                RemoveScore(s);
+            }
+            database.Delete(challenge);
+        }
+
         public void AddScore(Score score)
         {
             database.Insert(score);
+        }
+
+        public void RemoveScore(Score score)
+        {
+            database.Delete(score);
         }
 
         public void UpdateScore(Score score)

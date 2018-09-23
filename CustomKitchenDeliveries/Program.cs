@@ -2,24 +2,22 @@
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
-using Microsoft.Extensions.Configuration.Json;
-using Microsoft.Extensions.Configuration;
 
 namespace CustomKitchenDeliveries
 {
     class Program
     {
         BotMain botMain;
-        static IMessageChannel debugChannel;
 
         static void Main(string[] args)
         {
+            Console.Title = "Mhbot";
             new Program().MainAsync().GetAwaiter().GetResult();
         }
 
         public async Task MainAsync()
         {
-            ConfigHelper config = ApplicationController.Instance.ConfigHelper;
+            BotConfig config = ApplicationController.Instance.BotConfig;
             DiscordSocketClient client = new DiscordSocketClient(config);
 
             // Bind methods to events
@@ -37,8 +35,6 @@ namespace CustomKitchenDeliveries
 
         private async Task MessageRecieved(SocketMessage message)
         {
-            if(debugChannel == null)
-                debugChannel = message.Channel;
             await botMain.HandleMessage(message);
         }
 
@@ -46,11 +42,6 @@ namespace CustomKitchenDeliveries
         {
             Console.WriteLine("Log: {0}" ,logMessage.ToString());
             return Task.CompletedTask;
-        }
-
-        public static async Task DiscordDebug(string message)
-        {
-            await debugChannel.SendMessageAsync("`" + message + "`");
         }
     }
 }

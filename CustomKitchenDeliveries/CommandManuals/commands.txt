@@ -8,4 +8,6 @@
 Legend per weapon: !sns, !db, !ls, !gs, !ha, !hh, !swa, !cb, !la, !gl, !lbg, !hbg, !ig, !bow - Shows the emote assigned to the specific weapon
 
 Mod commands:
-COMING
+!removechallenge
+!removescore
+!addmod

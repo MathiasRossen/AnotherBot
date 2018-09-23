@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using CustomKitchenDeliveries.Models;
-using Discord.WebSocket;
 
 namespace CustomKitchenDeliveries
 {
@@ -30,7 +28,9 @@ namespace CustomKitchenDeliveries
 
         ChallengeDatabase challengeDatabase;
 
-        public ConfigHelper ConfigHelper { get; private set; }
+        public BotConfig BotConfig { get; private set; }
+        public string ApplicationPath => BotConfig.ApplicationPath;
+        public string ImagePath => BotConfig.ImagePath;
 
         public List<ulong> Mods { get; private set; }
         public List<ulong> RespondChannels { get; private set; }
@@ -41,8 +41,8 @@ namespace CustomKitchenDeliveries
 
         private ApplicationController()
         {
-            ConfigHelper = new ConfigHelper();
-            challengeDatabase = new ChallengeDatabase(ConfigHelper.Database);
+            BotConfig = new BotConfig();
+            challengeDatabase = new ChallengeDatabase(BotConfig.Database);
             SyncWithDatabase();
 
             // Adding myself
@@ -57,23 +57,33 @@ namespace CustomKitchenDeliveries
             return c;
         }
 
-        public void AddScore(string playerId, int clearTime, string imageName, int challengeId)
+        public void RemoveChallenge(string identifier)
+        {
+            Challenge c = Challenges.Find(x => x.Identifier == identifier);
+            challengeDatabase.RemoveChallenge(c);
+        }
+
+        public void AddScore(string playerId, string clearTimeString, int challengeId)
         {
             Score s = Scores.Find(x => x.PlayerDiscordId == playerId && x.ChallengeId == challengeId);
             if (s != null)
             {
-                Console.WriteLine("Found a score");
-                s.ClearTime = clearTime;
-                s.ImageName = imageName;
+                s.ClearTime = Score.ParseClearTime(clearTimeString);
+                s.ClearTimeString = clearTimeString;
+                //s.ImageName = imageName;
                 challengeDatabase.UpdateScore(s);
             }
             else
             {
-                Console.WriteLine("Found no score");
-                s = new Score() { ClearTime = clearTime, PlayerDiscordId = playerId, ImageName = imageName, ChallengeId = challengeId };
+                s = new Score() { ClearTime = Score.ParseClearTime(clearTimeString), ClearTimeString = clearTimeString, PlayerDiscordId = playerId, ChallengeId = challengeId };
                 Scores.Add(s);
                 challengeDatabase.AddScore(s);
             }
+        }
+
+        public void RemoveScore(Score score)
+        {           
+            challengeDatabase.RemoveScore(score);
         }
 
         public Player AddPlayer(string userId, string username)
@@ -103,22 +113,6 @@ namespace CustomKitchenDeliveries
             Players = challengeDatabase.Players;
             Challenges = challengeDatabase.Challenges;
             Scores = challengeDatabase.Scores;
-        }
-
-        public bool IsMod(SocketUser user)
-        {
-            SocketGuildUser guildUser = user as SocketGuildUser;
-            return guildUser.GuildPermissions.ManageGuild || IsMod(user.Id);
-        }
-
-        public bool IsMod(ulong userId)
-        {
-            foreach (ulong modUserId in Mods)
-            {
-                if (userId == modUserId)
-                    return true;
-            }
-            return false;
         }
 
     }

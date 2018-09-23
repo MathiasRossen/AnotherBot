@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CustomKitchenDeliveries.Commands;
-using CustomKitchenDeliveries.Models;
 using Discord.WebSocket;
 
 namespace CustomKitchenDeliveries
@@ -21,7 +15,10 @@ namespace CustomKitchenDeliveries
             { "!list", new ListChallengesCommand() },
             { "!show", new ShowChallengeCommand() },
             { "!legend", new LegendCommand() },
-            { "!help", new HelpCommand() }
+            { "!help", new HelpCommand() },
+            { "!removechallenge", new RemoveChallengeCommand() },
+            { "!removescore", new RemoveScoreCommand() },
+            { "!amimod", new AmIModCommand() }
         };
 
         public BotMain()
@@ -56,7 +53,7 @@ namespace CustomKitchenDeliveries
             ClientCommand clientCommand = new ClientCommand(message.Content, message);
             if(commands.TryGetValue(clientCommand.Name, out ICommand command))
             {
-                if (command.ExpectedArguments <= clientCommand.Count)
+                if (command.ExpectedArguments <= clientCommand.Count && command.CanExecute(clientCommand.Sender))
                     await command.Execute(clientCommand);
                 else
                     await clientCommand.Respond($"Expected {command.ExpectedArguments} arguments {Emotes.ERROR}");

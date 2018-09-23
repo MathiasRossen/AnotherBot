@@ -22,5 +22,23 @@ namespace CustomKitchenDeliveries.Commands
         {
             return message.Attachments.Count > 0;
         }
+
+        public static bool IsMod(SocketUser user)
+        {
+            SocketGuildUser guildUser = user as SocketGuildUser;
+            if (guildUser == null)
+                return IsMod(user.Id);
+            return guildUser.GuildPermissions.ManageGuild || IsMod(user.Id);
+        }
+
+        public static bool IsMod(ulong userId)
+        {
+            foreach (ulong modUserId in ApplicationController.Instance.Mods)
+            {
+                if (userId == modUserId)
+                    return true;
+            }
+            return false;
+        }
     }
 }

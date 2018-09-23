@@ -42,7 +42,7 @@ namespace CustomKitchenDeliveries
             await Channel.SendMessageAsync(message);
         }
 
-        public async Task RespondToSender(string message)
+        public async Task RespondAsDM(string message)
         {
             await Sender.GetOrCreateDMChannelAsync().Result.SendMessageAsync(message);
         }
