@@ -10,7 +10,7 @@ namespace CustomKitchenDeliveries.Commands
     {
         public static bool ValidClearTimeFormat(string clearTime)
         {
-            return Regex.Match(clearTime, "[0-4][0-9]'[0-5][0-9]\"[0-9][0-9]").Success;
+            return Regex.Match(clearTime, "^[0-4]?\\d'[0-5]\\d(\"|')\\d\\d$").Success;
         }
 
         public static bool ValidChallengeName(string challengeName)

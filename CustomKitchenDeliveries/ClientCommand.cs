@@ -25,13 +25,18 @@ namespace CustomKitchenDeliveries
             Sender = message.Author;
 
             string fullCommand = Regex.Replace(command, "[ ]{2,}", " ");
-            string[] commandSplit = fullCommand.Split(" ");
+            string[] commandSplit = Regex.Split(fullCommand, " \"([A-Za-z \\d\\-]+)\" |\\s");
             Name = commandSplit?[0];
 
             if (commandSplit.Length > 1)
             {
                 Arguments = commandSplit.ToList();
                 Arguments.RemoveAt(0);
+
+                for(int i = 0; i < Arguments.Count; i++)
+                {
+                    Arguments[i] = Arguments[i].Trim();
+                }
             }
             else
                 Arguments = new List<string>();

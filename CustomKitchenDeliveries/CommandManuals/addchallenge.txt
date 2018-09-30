@@ -1,7 +1,7 @@
 ﻿Use this command to start a challenge.
-Usage: !addchallenge Name-with-dashes-1 weaponId
+Usage: !addchallenge "Challenge name" weaponId
 
-Name-with-dashes - Specifies the challenge name and you should provide a number too, as it is used in the identifier. Example: Arena-Quest-01:-Pukei-Pukei will become Arena Quest 01: Pukei Pukei.
+"Challenge name" - Specify a challege name within the quote symbols.
 
 weaponId - Used to determine which weapon should be used for the challenge.
 0 = Sword and Shield

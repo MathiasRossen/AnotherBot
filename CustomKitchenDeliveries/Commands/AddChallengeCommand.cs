@@ -19,14 +19,13 @@ namespace CustomKitchenDeliveries.Commands
                 p = application.AddPlayer(commandData.SenderIdString, commandData.Sender.Username);
 
             string challengeName = commandData.Arguments[0]; 
-            challengeName = Regex.Replace(challengeName, "[-]", " ");
             string postingPlayerId = p.DiscordId;
             string identifier = Regex.Replace(challengeName, "[^0-9]", "");
 
             int weaponId = 0;
-            if (identifier.Length < 1)
-                await commandData.Respond($"You forgot a number in the title {Emotes.ERROR}");
-            else if (!int.TryParse(commandData.Arguments[1], out weaponId))
+            //if (identifier.Length < 1)
+            //    await commandData.Respond($"You forgot a number in the title {Emotes.ERROR}");
+            if (!int.TryParse(commandData.Arguments[1], out weaponId))
                 await commandData.Respond($"Invalid input in selected weapon {Emotes.ERROR}");
             else
             {

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CustomKitchenDeliveries.Commands
@@ -40,7 +41,7 @@ namespace CustomKitchenDeliveries.Commands
                 //{
                 //    imageName = DownloadImage(attachment.Url, attachment.Filename);
                 //}
-
+                clearTime = Regex.Replace(clearTime, "(?<=\\d\\d'\\d\\d)'", "\"");
                 application.AddScore(player.DiscordId, clearTime, challenge.Id);
                 await commandData.Respond($"Your score was added! {Emotes.SUCCESS}");
             }

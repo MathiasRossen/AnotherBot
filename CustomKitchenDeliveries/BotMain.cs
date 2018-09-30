@@ -18,7 +18,8 @@ namespace CustomKitchenDeliveries
             { "!help", new HelpCommand() },
             { "!removechallenge", new RemoveChallengeCommand() },
             { "!removescore", new RemoveScoreCommand() },
-            { "!amimod", new AmIModCommand() }
+            { "!amimod", new AmIModCommand() },
+            { "!cat", new CatCommand() }
         };
 
         public BotMain()
